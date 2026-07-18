@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ideal Toldos | Central de Divulgação</title>
+  <link rel="stylesheet" href="admin.css"/>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="assets/logo-copa-2026.png" onerror="this.src='assets/logo.png'" alt="Ideal Toldos">
+      <div>
+        <strong>IDEAL TOLDOS</strong>
+        <span>Ferramenta de Divulgação</span>
+      </div>
+    </div>
+
+    <nav class="side-nav">
+      <button class="nav-item active" data-page="dashboard">🏠 Dashboard</button>
+      <button class="nav-item" data-page="grupos">📚 Banco de Grupos</button>
+      <button class="nav-item" data-page="regioes">🗺 Controle de Região</button>
+      <button class="nav-item" data-page="modelos">📝 Modelos de Postagem</button>
+      <button class="nav-item" data-page="ciclo">🚀 Ciclo de Divulgação</button>
+      <button class="nav-item" data-page="relatorios">📊 Relatórios</button>
+      <button class="nav-item" data-page="galeria">🖼 Galeria</button>
+      <button class="nav-item" data-page="clientes">👥 Clientes</button>
+      <button class="nav-item" data-page="como-usar">❓ Como Usar</button>
+      <button class="nav-item" data-page="config">⚙ Configurações</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <strong>Ideal Toldos</strong>
+      <p>Poste mais. Trabalhe menos. Controle tudo em um painel.</p>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button id="menuBtn" class="menu-btn">☰</button>
+      <div>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p id="pageSubtitle">Resumo da ferramenta de divulgação</p>
+      </div>
+      <div class="admin-profile">
+        <span class="status-dot"></span>
+        <div>
+          <strong>Administrador</strong>
+          <small>Online</small>
+        </div>
+      </div>
+    </header>
+
+    <section class="page active" id="dashboard">
+      <div class="stats-grid">
+        <div class="stat-card"><span>👥</span><div><strong id="statGroups">0</strong><p>Grupos cadastrados</p></div></div>
+        <div class="stat-card"><span>📍</span><div><strong id="statRegions">0</strong><p>Bairros cadastrados</p></div></div>
+        <div class="stat-card"><span>✅</span><div><strong id="statPosted">0</strong><p>Postados hoje</p></div></div>
+        <div class="stat-card"><span>🎯</span><div><strong id="statGoal">0 / 500</strong><p>Meta total</p></div></div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="panel">
+          <div class="panel-head"><h2>Controle de Região</h2><button data-page-go="regioes">Ver todas</button></div>
+          <div id="dashRegions" class="region-list"></div>
+        </div>
+
+        <div class="panel cycle-panel">
+          <div class="panel-head"><h2>Ciclo de Divulgação</h2><button data-page-go="ciclo">Abrir ciclo</button></div>
+          <div class="cycle-dashboard">
+            <label>Selecionar bairro</label>
+            <select id="dashRegionSelect"></select>
+            <div id="dashCurrentGroup" class="current-group">Nenhum grupo selecionado.</div>
+            <strong id="dashMessageNumber">Mensagem atual: 1 de 4</strong><textarea id="dashCurrentMessage" readonly></textarea>
+            <div class="actions">
+              <button id="dashCopyBtn" class="btn blue">Copiar Mensagem</button>
+              <button id="dashNextBtn" class="btn purple">Próximo Grupo</button>
+              <button id="dashPostedBtn" class="btn green">Marcar Postado</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>Modelos de Postagem</h2><button data-page-go="modelos">Gerenciar</button></div>
+          <div id="dashModels" class="models-list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>Atividade Recente</h2><button data-page-go="relatorios">Ver todas</button></div>
+          <div id="recentActivity" class="activity-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="grupos">
+      <div class="panel">
+        <div class="panel-head"><h2>Banco de Grupos</h2><span id="groupCountBadge">0 grupos</span></div>
+        <p>Escolha o bairro uma vez. Ele será usado para cadastrar, extrair e salvar todos os grupos desta operação.</p>
+        <div class="form-grid single-region-grid">
+          <select id="groupRegionSelect"><option value="">Selecionar bairro</option></select>
+          <input id="groupName" placeholder="Nome do grupo (opcional ao extrair)">
+          <input id="groupUrl" placeholder="Link do grupo Facebook">
+          <input id="groupMembers" placeholder="Membros opcional">
+        </div>
+        <div class="actions">
+          <button id="saveGroupBtn" class="btn green">Salvar Grupo</button>
+          <button id="clearGroupFormBtn" class="btn ghost">Limpar</button>
+        </div>
+      </div>
+
+      <div class="panel mass-search-panel">
+        <div class="panel-head"><h2>🔎 Gerador de buscas</h2><span>Google · Facebook Groups</span></div>
+        <p>Marque os tipos de grupo. Ao escolher o bairro, as buscas serão montadas automaticamente.</p>
+        <div id="searchNiches" class="niche-grid">
+          <label><input type="checkbox" value="desapego" checked> Desapego</label>
+          <label><input type="checkbox" value="serviços"> Serviços</label>
+          <label><input type="checkbox" value="troca"> Troca</label>
+          <label><input type="checkbox" value="compra e venda"> Compra e venda</label>
+          <label><input type="checkbox" value="moradores"> Moradores</label>
+          <label><input type="checkbox" value="classificados"> Classificados</label>
+        </div>
+        <textarea id="massSearchTerms" readonly placeholder="Selecione um bairro acima."></textarea>
+        <div class="actions">
+          <button id="generateMassSearchBtn" class="btn blue">Gerar buscas</button>
+          <button id="openMassSearchBtn" class="btn purple">Abrir todas</button>
+          <button id="copyMassSearchBtn" class="btn green">Copiar buscas</button>
+        </div>
+        <div id="massSearchResults" class="data-list"></div>
+      </div>
+
+      <div class="panel hunter2-panel">
+        <div class="panel-head"><h2>🧲 Caçador de Links 2.0</h2><span id="selectedRegionLabel">Bairro não selecionado</span></div>
+        <p>Cole links ou texto copiado do Google. Todos os grupos extraídos receberão automaticamente o bairro selecionado acima.</p>
+        <textarea id="hunter2PasteBox" placeholder="Cole aqui os links dos grupos do Facebook..."></textarea>
+        <div class="actions">
+          <button id="hunter2ExtractBtn" class="btn blue">Extrair links</button>
+          <button id="hunter2SelectAllBtn" class="btn purple">Selecionar todos</button>
+          <button id="hunter2SaveBtn" class="btn green">Salvar selecionados</button>
+          <button id="hunter2ClearBtn" class="btn ghost">Limpar</button>
+        </div>
+        <p id="hunter2Status" class="bank-status">Nenhum link extraído ainda.</p>
+        <div id="hunter2Results" class="data-list"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Grupos cadastrados</h2><input id="filterGroups" placeholder="Filtrar grupo..."></div>
+        <div class="actions">
+          <button id="exportGroupsBtn" class="btn green">Exportar banco</button>
+          <label class="btn ghost import-label">Importar banco <input id="importGroupsFile" type="file" accept=".json" hidden></label>
+        </div>
+        <div id="groupsTable" class="data-list"></div>
+      </div>
+    </section>
+
+    <section class="page" id="regioes">
+      <div class="panel">
+        <div class="panel-head"><h2>Controle de Região</h2><button id="resetRegionsBtn" class="btn red">Zerar ciclo das regiões</button></div>
+        <div class="form-grid">
+          <input id="newRegionName" placeholder="Novo bairro">
+          <select id="newRegionZone">
+            <option>Zona Oeste</option><option>Zona Norte</option><option>Zona Sul</option><option>Centro</option><option>Baixada</option>
+          </select>
+          <input id="newRegionGoal" type="number" value="100" placeholder="Meta">
+        </div>
+        <div class="actions">
+          <button id="addRegionBtn" class="btn green">Adicionar Bairro</button>
+          <button id="loadDefaultRegionsBtn" class="btn blue">Atualizar bairros por região</button>
+        </div>
+      </div>
+      <div id="regionsGrid" class="regions-grid"></div>
+    </section>
+
+    <section class="page" id="modelos">
+      <div class="panel">
+        <div class="panel-head"><h2>Modelos de Postagem</h2><button id="saveModelsBtn" class="btn green">Salvar modelos</button></div>
+        <p>O ciclo alterna automaticamente: Grupo 1 usa mensagem 1, Grupo 2 usa mensagem 2, Grupo 3 usa mensagem 3, Grupo 4 usa mensagem 4.</p>
+        <div class="models-grid">
+          <textarea id="model1" placeholder="Mensagem 1"></textarea>
+          <textarea id="model2" placeholder="Mensagem 2"></textarea>
+          <textarea id="model3" placeholder="Mensagem 3"></textarea>
+          <textarea id="model4" placeholder="Mensagem 4"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="ciclo">
+      <div class="panel">
+        <div class="panel-head"><h2>Ciclo de Divulgação</h2><span id="cycleProgress">0 / 0</span></div>
+        <div class="form-grid">
+          <select id="cycleRegionSelect"></select>
+          <input id="cycleLimit" type="number" value="20" placeholder="Quantidade no ciclo">
+        </div>
+        <div class="actions">
+          <button id="startCycleBtn" class="btn blue">Iniciar Ciclo</button>
+          <button id="openNextBtn" class="btn purple">Abrir Próximo Grupo</button>
+          <button id="copyMessageBtn" class="btn blue">Copiar Mensagem Atual</button>
+          <button id="markPostedBtn" class="btn green">Marcar como Postado</button>
+          <button id="resetCycleBtn" class="btn red">Zerar Ciclo</button>
+        </div>
+        <div id="currentCycleGroup" class="current-group">Nenhum grupo no ciclo.</div>
+        <strong id="currentMessageNumber">Mensagem atual: 1 de 4</strong>
+        <textarea id="currentCycleMessage" readonly></textarea>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Fila do ciclo</h2></div>
+        <div id="cycleList" class="data-list"></div>
+      </div>
+    </section>
+
+    <section class="page" id="relatorios">
+      <div class="panel">
+        <div class="panel-head"><h2>Relatórios por Bairro</h2></div>
+        <div class="stats-grid small">
+          <div class="stat-card"><span>👆</span><div><strong id="totalClicks">0</strong><p>Cliques totais</p></div></div>
+          <div class="stat-card"><span>📍</span><div><strong id="topClickRegion">-</strong><p>Bairro com mais cliques</p></div></div>
+          <div class="stat-card"><span>👥</span><div><strong id="topClickGroup">-</strong><p>Grupo com mais cliques</p></div></div>
+        </div>
+        <h3>Cliques por bairro</h3>
+        <div id="clickReportsList" class="data-list"></div>
+        <h3>Relatórios por Bairro</h3>
+        <div id="reportsList" class="data-list"></div>
+      </div>
+    </section>
+
+    <section class="page" id="galeria">
+      <div class="panel">
+        <div class="panel-head"><h2>Galeria</h2><a class="btn blue" href="admin-galeria.html">Abrir gerenciador de fotos</a></div>
+        <p>Fotos ficam no volume persistente do Railway.</p>
+      </div>
+    </section>
+
+    <section class="page" id="clientes">
+      <div class="panel">
+        <div class="panel-head"><h2>Clientes</h2></div>
+        <div id="clientsList" class="data-list">Carregando clientes...</div>
+      </div>
+    </section>
+
+    <section class="page" id="como-usar">
+      <div class="panel help-panel">
+        <div class="panel-head"><h2>Como usar a ferramenta</h2></div>
+        <div class="help-steps">
+          <article><strong>1. Cadastre os grupos</strong><p>Abra Banco de Grupos, escolha o bairro, gere buscas, copie os links encontrados e salve. O bairro é aplicado automaticamente.</p></article>
+          <article><strong>2. Cadastre as mensagens</strong><p>Em Modelos de Postagem, salve até quatro textos. Use <code>{LINK}</code> no ponto onde deve entrar o link rastreável.</p></article>
+          <article><strong>3. Inicie o ciclo</strong><p>Escolha o bairro no Ciclo de Divulgação e clique em Iniciar Ciclo. Somente grupos desse bairro e liberados há mais de 24 horas entram na fila.</p></article>
+          <article><strong>4. Poste no Facebook</strong><p>Copie a mensagem, abra o grupo e publique. O link da mensagem usa <code>/r?src=...</code>, registra o clique e redireciona para o grupo.</p></article>
+          <article><strong>5. Marque como postado</strong><p>Depois de publicar, clique em Marcar como Postado. O grupo fica bloqueado por 24 horas e o próximo é carregado.</p></article>
+          <article><strong>6. Confira os relatórios</strong><p>A aba Relatórios mostra cliques totais, bairro e grupo com mais cliques. Para testar, abra o link rastreável em outra aba ou aparelho.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="config">
+      <div class="panel">
+        <div class="panel-head"><h2>Configurações</h2></div>
+        <p>Dados salvos em arquivos persistentes quando o servidor estiver configurado com volume.</p>
+        <button id="exportDataBtn" class="btn blue">Exportar dados do painel</button>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Controle de Cliques</h2></div>
+        <p>Cadastre seu IP para não contar seus próprios cliques nos anúncios.</p>
+        <div class="form-grid">
+          <input id="adminIgnoredIp" placeholder="Seu IP para ignorar nos cliques. Ex: 189.00.00.00">
+          <button id="saveIgnoredIpBtn" class="btn green" type="button">Salvar IP ignorado</button>
+        </div>
+        <p id="ignoredIpStatus"></p>
+      </div>
+
+    </section>
+  
+</main>
+  <script src="admin-clean.js?v=20260718-rotacao-final"></script>
+</body>
+</html>
